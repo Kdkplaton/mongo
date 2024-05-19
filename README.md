@@ -7,7 +7,7 @@
 
 작성한 API 목록
 
-캐릭터 생성
+캐릭터 생성 - (완료)
 ~/api/character [POST]
 객체(캐릭터)를 생성합니다.
 
@@ -15,7 +15,11 @@
 ~/api/character [DELETE]
 객체(캐릭터)를 삭제합니다.
 
-캐릭터 상세정보
+캐릭터 특정대상 조회 - (완료)
+~/api/character [GET]
+전체 객체(캐릭터)의 정보를 가져옵니다.
+
+캐릭터 특정대상 조회 - (완료)
 ~/api/character/:characterId [GET]
 특정 ID의 객체(캐릭터)의 정보를 가져옵니다.
 

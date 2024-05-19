@@ -20,7 +20,6 @@ router.post('/character', async (req, res, next) => {
     // 유효성 검사
     const validation = await createdCharacterSchema.validateAsync(req.body);
     const { name, health, power } = validation;
-    console.log(name, health, power);
 
     // 빈 부분이 존재할 경우, 에러 메시지 전달
     if (!name || !health || !power) {
@@ -49,35 +48,33 @@ router.post('/character', async (req, res, next) => {
 
 // 캐릭터 삭제
 // ~/api/character/:characterId [DELETE]
-router.delete('/character/:characterId', async (req, res, next) => {
-  // 삭제할 캐릭터의 ID 값을 가져옴
-  const { characterId } = req.params;
+router.delete('/character/:character_id', async (req, res, next) => {
+  // 목표 대상 ID값 설정
+  const targetId = parseInt(req.params.character_id);
 
-  // 삭제하려는 캐릭터를 조회. 만약, 해당 ID값을 가진 캐릭터가 없다면 에러 발생
-  const Character = await Character.findById(characterId).exec();
-  if (!Character) {
-    return res
-      .status(404)    // 존재하지 않는 대상
+  // 삭제하려는 캐릭터를 조회, 없으면 에러 메시지
+  const deleteCharacter = await Character.findOne({character_id: targetId}).exec();
+  if (!deleteCharacter) {
+    return res.status(404)    // 존재하지 않는 대상
       .json({ errorMessage: '존재하지 않는 데이터입니다.' });
   }
 
   // 조회된 캐릭터를 삭제
-  await Character.deleteOne({ _id: characterId }).exec();
+  await Character.deleteOne({character_id: targetId}).exec();
 
   return res.status(200).json({});
 });
 
-// 캐릭터 세부조회
+// 캐릭터 특정대상 조회
 // ~/api/character/:characterId [GET]
 router.get('/character/:character_id', async (req, res, next) => {
-  // 목표 ID 설정
+  // 목표 대상 ID값 설정
   const targetId = parseInt(req.params.character_id);
   
-  // 목록 조회 (캐릭터)
+  // 대상(캐릭터) 조회, 없으면 에러 메시지
   const targetCharacter = await Character.findOne({character_id: targetId}).exec();
   if(!targetCharacter) {
-    return res
-      .status(404)    // 존재하지 않는 대상
+    return res.status(404)    // 존재하지 않는 대상
       .json({ errorMessage: '존재하지 않는 데이터입니다.' });
   }
 
@@ -88,15 +85,22 @@ router.get('/character/:character_id', async (req, res, next) => {
 // 캐릭터 전체조회
 // ~/api/character [GET]
 router.get('/character', async (req, res, next) => {
-  // 목록 조회 (캐릭터)
+  // 목록(캐릭터) 조회, 없으면 에러 메시지
   const characterList = await Character.find().sort('-character_id').exec();
+  if(!characterList) {
+    return res.status(404)    // 존재하지 않는 대상
+      .json({ errorMessage: '데이터가 없습니다.' });
+  }
 
   // 조회 결과 반환
   return res.status(200).json({ characterList });
 });
 
 // 캐릭터 정보 수정
-router.patch('/character/:characterId', async (req, res, next) => {
+router.patch('/character/:character_id', async (req, res, next) => {
+  // 목표 대상 ID값 설정
+  const targetId = parseInt(req.params.character_id);
+
 
 });
 
