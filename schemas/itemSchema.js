@@ -13,8 +13,8 @@ const ItemSchema = new mongoose.Schema({
     required: true, // 이름 : 필수 요소
   },
   item_stat: {
-    type: Number,
-    required: true, // 체력 : 필수 요소
+    health: { type: Number },
+    power: { type: Number },
   },
 });
 

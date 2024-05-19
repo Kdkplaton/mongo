@@ -26,7 +26,7 @@ router.post('/character', async (req, res, next) => {
     }
 
     // Character 모델을 사용해, MongoDB에서 'character_id' 값이 가장 높은 데이터 조회
-    const charcterMaxId = await Todo.findOne().sort('-character_id').exec();
+    const charcterMaxId = await data.findOne().sort('-character_id').exec();
 
     // 'character_id' 값이 가장 높은 도큐멘트의 1을 추가하거나 없다면, 1을 할당합니다.
     const id = charcterMaxId ? charcterMaxId.character_id + 1 : 1;

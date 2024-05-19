@@ -21,6 +21,10 @@ const CharacterSchema = new mongoose.Schema({
     type: Number,
     required: true, // 힘 : 필수 요소
   },
+  item_equiped: {
+    type: Object,
+    required: false,  // 장비 : 필수 요소 X
+  },
 });
 
 // CharacterSchema 바탕으로 Character 모델을 생성하여, 외부로 내보냅니다.
