@@ -25,7 +25,7 @@ router.post('/character', async (req, res, next) => {
     if (!name || !health || !power) {
       return res
         .status(400)
-        .json({ errorMessage: '데이터가 존재하지 않습니다.' });
+        .json({ errorMessage: '필요한 데이터가 없습니다.' });
     }
 
     // Character 모델을 사용해, MongoDB에서 character_id 값이 가장 높은 데이터 조회
@@ -75,7 +75,7 @@ router.get('/character/:character_id', async (req, res, next) => {
   const targetCharacter = await Character.findOne({character_id: targetId}).exec();
   if(!targetCharacter) {
     return res.status(404)    // 존재하지 않는 대상
-      .json({ errorMessage: '존재하지 않는 데이터입니다.' });
+      .json({ errorMessage: '존재하지 않는 대상입니다.' });
   }
 
   // 조회 결과 반환
