@@ -69,13 +69,17 @@ router.delete('/character/:characterId', async (req, res, next) => {
 
 // 캐릭터 세부조회
 // ~/api/character/:characterId [GET]
-router.get('/character/:characterId', async (req, res, next) => {
+router.get('/character/:character_id', async (req, res, next) => {
   // 목표 ID 설정
-  const targetId = req.params;
-  console.log(targetId);
+  const targetId = parseInt(req.params.character_id);
   
   // 목록 조회 (캐릭터)
-  const targetCharacter = await Character.findById(targetId).exec();
+  const targetCharacter = await Character.findOne({character_id: targetId}).exec();
+  if(!targetCharacter) {
+    return res
+      .status(404)    // 존재하지 않는 대상
+      .json({ errorMessage: '존재하지 않는 데이터입니다.' });
+  }
 
   // 조회 결과 반환
   return res.status(200).json({ targetCharacter });
