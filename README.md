@@ -12,11 +12,11 @@
 객체(캐릭터)를 생성합니다.
 
 캐릭터 삭제 - (완료)
-~/api/character [DELETE]
+~/api/character/:character_id [DELETE]
 객체(캐릭터)를 삭제합니다.
 
 캐릭터 특정대상 조회 - (완료)
-~/api/character/:characterId [GET]
+~/api/character/:character_id [GET]
 특정 ID의 객체(캐릭터)의 정보를 가져옵니다.
 
 캐릭터 전체 조회 - (완료)
