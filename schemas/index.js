@@ -1,12 +1,15 @@
 
 import mongoose from 'mongoose';
+import 'dotenv/config'
+
+const connectionString = process.env.mongoDB_connString;
 
 // mongoDB 연결
 const connect = () => {
   mongoose
     .connect(
       // 빨간색으로 표시된 부분은 대여한 ID, Password, 주소에 맞게끔 수정해주세요!
-      'mongodb+srv://sparta-user:aaaa1234@express-mongo.bhmnpz7.mongodb.net/?retryWrites=true&w=majority&appName=express-mongo',
+      connectionString,
       {
         dbName: 'game_data', // game_data 데이터베이스명을 사용합니다.
       },
